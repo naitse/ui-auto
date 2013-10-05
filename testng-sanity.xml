@@ -1,0 +1,85 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite Sanity" verbose="1" ><!-- parallel="tests" thread-count="2" -->
+    <test name="Applications">
+        <groups>
+            <run>
+                <include name="sanity"  />
+                <exclude name="broken" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.globant.selenium.tests.CreateApplication" />
+            <class name="com.globant.selenium.tests.DeleteApplication" />
+            <!--<class name="com.globantselenium.tests.ManageApplication" />-->
+        </classes>
+    </test>
+    <!--<test name="Applications Promotion">
+        <groups>
+            <run>
+                <include name="sanity"  />
+                <exclude name="broken" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.globantselenium.tests.ApplicationPromotion" />
+        </classes>
+    </test>-->
+    <test name="Insight">
+        <groups>
+            <run>
+                <include name="sanity"  />
+                <exclude name="broken" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.globant.selenium.tests.EventTracking" />
+        </classes>
+    </test>
+    <test name="Notifications">
+        <groups>
+            <run>
+                <include name="sanity"  />
+                <exclude name="broken" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.globant.selenium.tests.Notifications" />
+        </classes>
+    </test>
+    <test name="Account">
+        <groups>
+            <run>
+                <include name="sanity"  />
+                <exclude name="broken" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.globant.selenium.tests.Organization" />
+            <!--<class name="com.globantselenium.tests.SignUp" />
+            <class name="com.globantselenium.tests.BillingInformation" /> -->
+        </classes>
+    </test>
+    <test name="Alerts">
+        <groups>
+            <run>
+                <include name="sanity"  />
+                <exclude name="broken" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.globant.selenium.tests.Alerts" />
+        </classes>
+    </test>
+    <test name="Multi Tenant">
+        <groups>
+            <run>
+                <include name="sanity"  />
+                <exclude name="broken" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.globant.selenium.tests.MultiTenant" />
+        </classes>
+    </test>
+</suite>

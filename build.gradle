@@ -1,0 +1,80 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+    mavenRepo (urls: ['http://repository.codehaus.org','http://download.java.net/maven/2/'])
+}
+
+dependencies {
+
+    groovy group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.8.6'
+    compile group: 'javax.mail', name: 'mail', version: '1.4'
+    compile group: 'log4j', name: 'log4j', version: '1.2.16'
+    compile(group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.5.2') {
+        exclude module: 'groovy'
+        exclude module: 'xml-apis'
+    }
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.35.0'
+    compile group: 'org.codehaus.geb', name: 'geb-core', version: '0.7.2'
+
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.0.002'
+
+    testCompile 'org.testng:testng:6.1.1'
+    testCompile ('org.uncommons:reportng:1.1.2'){
+        exclude module:"testng"
+    }
+}
+
+task "forceTest" {
+    dependsOn "cleanTest", "test"
+    test.outputs.upToDateWhen { false }
+
+}
+
+test {
+    systemProperties = System.properties
+
+
+    useTestNG()
+
+    options {
+        listeners << 'org.uncommons.reportng.HTMLReporter'
+        listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+    }
+
+    //options.suites("testng-sanity.xml")
+    //options.suites("testng-regression.xml")
+
+    switch("${testSuite}"){
+        case "sanity":
+            options.suites("testng-sanity.xml")
+            break
+        case "regression":
+            options.suites("testng-regression.xml")
+            break
+        case "smoke":
+            options.suites("testng-smoke.xml")
+            break
+    }
+
+
+
+    testLogging.showStandardStreams = true
+
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
+
+}
+
+groovydoc{
+    header "AVENGE ME!"
+    footer "AVENGE ME!"
+
+}

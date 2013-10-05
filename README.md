@@ -22,26 +22,33 @@ cd $HOME
 
 
 
-Cloudhub UI Automation
+UI Automation
 ===================
 
 
-This project contains the automation for Cloudhub Web Console. 
+This project contains the automation for Web Pages. 
 The technology used to automate these tests are Selenium + Geb + TestNG using groovy as language.
 We use TestNG as runner to group test cases in suites as regression or sanity check.
 
 The way to execute this project is using Gradle:
 
-parameters muVersion33 and muleVersion34 are used to specify the worker mule version, for instace 3.4.0-R30-xx (use the same as it apears at the UI)
+** Note: user and pass parameter are optionals, they have defaults at Properties class
+
 
 #### Regression
 
 ```sh
-gradle -Dgeb.build.baseUrl=https://qa.cloudhub.io/ -Dgeb.env=remote-chrome -DmuleVersion34="3.4.0" -DmuleVersion33="3.3.2" -i -PtestSuite=regression groovydoc test
+gradle -Dgeb.build.baseUrl=https://example.com/  -Duser="usuario@ejemplo.com" -Dpass="el pass" -i -PtestSuite=regression groovydoc test
 ```
 
 #### Sanity
 
 ```sh
-gradle -Dgeb.build.baseUrl=https://qa.cloudhub.io/ -Dgeb.env=remote-chrome -DmuleVersion34="3.4.0" -DmuleVersion33="3.3.2" -i -PtestSuite=sanity groovydoc test
+gradle -Dgeb.build.baseUrl=https://example.com/  -Duser="usuario@ejemplo.com" -Dpass="el pass"   -i -PtestSuite=sanity groovydoc test
+```
+
+#### smoke
+
+```sh
+gradle -Dgeb.build.baseUrl=https://example.com/  -Duser="usuario@ejemplo.com" -Dpass="el pass"   -i -PtestSuite=smoke groovydoc test
 ```

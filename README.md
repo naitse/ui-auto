@@ -22,9 +22,13 @@ cd $HOME
 > **Windows Users:**
 
 Download the zip
+
 unpack
-environment variables
+
+> Environment variables
+
 add GRADLE_HOME to gradle unziped files
+
 add %GRADLE_HOME%\bin to PATH variable
 
 

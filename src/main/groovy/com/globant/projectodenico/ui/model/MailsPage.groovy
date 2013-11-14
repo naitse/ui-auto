@@ -22,24 +22,29 @@ class MailsPage extends Page {
      */
     static content = {
         composeBtn {
-            waitFor{$("#main-btn-new").isDisplayed()}
-            $("#main-btn-new a")
+            waitFor{$(".btn-compose").isDisplayed()}
+            $(".btn-compose")
         }
 
         sendBtn(required:false) {$("#btn-send a")}
 
-        saveDraftBtn(required: false) {$('#btn-save-draft')}
+        closeComposeEmail(required:false) {$(".compose-header .qr-card-actions a")}
 
-        toField(required:false) {$('#to input')}
+        saveDraftBtn(required: false) {$('#SaveDraftModalOverlay')}
 
-        subject(required:false) {$('#subject input')}
+        toField(required:false) {$('.cm-to-field')}
 
-        inboxBtn(required: false) {$("#Inbox")}
+        subject(required:false) {$('#subject-field')}
 
-        draftBtn(required: false) {$('#Draft')}
+        inboxBtn(required: false) {$(".btn-inbox")}
+
+        draftBtn(required: false) {$('.btn-drafts')}
+
+        selectAllDraftsBtn(required: false) {$("#btn-ml-cbox input")}
 
         deleteBtn(required: false) {$('#btn-delete')}
 
+        emailsList(required: false) {$("#msg-list")}
     }
 
     void openComposeView(){
@@ -53,17 +58,33 @@ class MailsPage extends Page {
 
         sendBtn.click()
 
-        sleep(5000)
+        sleep(2000)
     }
 
     void saveDraft(){
+        closeComposeEmail.click()
+        waitFor{
+            saveDraftBtn.isDisplayed()
+        }
+
         saveDraftBtn.click()
-        sleep(5000)
+        sleep(2000)
     }
 
-    void deleteMails(){
-        deleteBtn.click()
-        sleep(5000)
+    void selectAllDrafts(){
+        selectAllDraftsBtn.click()
+        sleep(2000)
+    }
+
+    void deleteDrafts(){
+        $(".icon-delete").click()
+        if(emailsList.find(".list-view-item-container").size() > 0){
+            waitFor{
+                $("#okModalOverlay").isDisplayed()
+            }
+            $("#okModalOverlay").click()
+            sleep(2000)
+        }
     }
 
     void goToDrafts(){

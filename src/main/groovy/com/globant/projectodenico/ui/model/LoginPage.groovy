@@ -44,7 +44,7 @@ class LoginPage extends Page{
         loginBtn.click()
 
         waitFor('slow') {
-            $('#main-btn-new').isDisplayed()
+            $('.btn-compose').isDisplayed()
         }
 
     }

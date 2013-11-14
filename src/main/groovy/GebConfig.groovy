@@ -31,8 +31,8 @@ waiting {
 reportOnTestFailureOnly = true
 reportsDir = "src/test/reports"
 
-//username = 'projectodenico-automation'
-//password = 'Test123'
+username = 'projectodenico'
+password = 'Test1234'
 
 String ChromeLocalRemoteDriverURL = "http://localhost:9515"
 

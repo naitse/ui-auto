@@ -48,15 +48,14 @@ class MandarMail {
 
             goToDrafts()
 
-            assert draftBtn.find('.unread-count ').text() == '(1)', 'o hay mas de un draft o no aparecio el indicador'
-            assert $('.from').find('span').text() == "${com.globant.projectodenico.common.Properties.usuario}@yahoo.com.ar", 'AVENGE ME!!'
-            assert $('.subj').find('span').text() == 'mi primer automation de UI', 'algo paso'
+            assert emailsList.find(".list-view-item-container").size() > 0, "No hay drafts en la lista"
 
-            $('#btn-ml-cbox input').click()
+            assert emailsList.find(".list-view-item-container")[0].find('.from').find('span.name').text() == "${com.globant.projectodenico.common.Properties.usuario}@yahoo.com.ar", 'AVENGE ME!!'
+            assert emailsList.find(".list-view-item-container")[0].find('.subj').find('span.subject').text() == 'mi primer automation de UI', 'algo paso'
 
-            deleteMails()
+            selectAllDrafts()
 
-            assert draftBtn.find('.unread-count ').isDisplayed() == false, 'no tiene la clase invisible'
+            deleteDrafts()
 
         }
     }

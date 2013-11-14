@@ -29,6 +29,23 @@ add %GRADLE_HOME%\bin to PATH variable
 
 
 
+Preparation
+==============
+
+before runing it you should invoke some commands in order to download the dependencies and create the correct IDE project files
+
+I'll use IDEA coz is nice
+
+
+```sh
+gradle cleanIdea -PtestSuite=smoke
+
+gradle idea -PtestSuite=smoke
+
+```
+
+that should build the project (downloading the dependencies if you dont already have them on your local m2)
+and create the idea ipr, iws and stuff
 
 UI Automation
 ===================

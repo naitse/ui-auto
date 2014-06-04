@@ -2,6 +2,8 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
+testSuiteInternal = (System.properties.get('testSuite') == null)?'sanity':System.properties.get('testSuite')
+
 repositories {
     mavenCentral()
     mavenRepo (urls: ['http://repository.codehaus.org','http://download.java.net/maven/2/'])
@@ -16,7 +18,7 @@ dependencies {
         exclude module: 'groovy'
         exclude module: 'xml-apis'
     }
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.35.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
     compile group: 'org.codehaus.geb', name: 'geb-core', version: '0.7.2'
 
     compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.0.002'
@@ -47,7 +49,7 @@ test {
     //options.suites("testng-sanity.xml")
     //options.suites("testng-regression.xml")
 
-    switch("${testSuite}"){
+    switch("${testSuiteInternal}"){
         case "sanity":
             options.suites("testng-sanity.xml")
             break
@@ -56,6 +58,13 @@ test {
             break
         case "smoke":
             options.suites("testng-smoke.xml")
+            break
+
+        case "custom":
+            File temp = File.createTempFile("custom", ".xml");
+            temp.write(System.properties.get('customURL').toURL().text);
+
+            options.suites(temp);
             break
     }
 
